@@ -12,9 +12,10 @@ The [second implementation](https://pmuens.github.io/time-lock-puzzle/lhtlp.html
 
 1. `git clone <url>`
 2. `cd <name>`
-3. `GOOS=js GOARCH=wasm go build -o ./docs/main.wasm cmd/wasm/main.go`
-4. `go run ./cmd/server`
-5. [http://127.0.0.1:3000](http://127.0.0.1:3000)
+3. `go run ./cmd/tlp`
+4. `GOOS=js GOARCH=wasm go build -o ./docs/main.wasm cmd/wasm/main.go`
+5. `go run ./cmd/server`
+6. [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
 ## Useful Commands
 
