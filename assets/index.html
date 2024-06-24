@@ -13,5 +13,20 @@
       });
     </script>
   </head>
-  <body></body>
+  <body>
+    <textarea id="input" name="input" cols="80" rows="20"></textarea>
+    <input
+      id="button"
+      type="submit"
+      name="button"
+      value="Prettify"
+      onclick="json(input.value)"
+    />
+    <textarea id="output" name="output" cols="80" rows="20"></textarea>
+  </body>
+  <script>
+    var json = function (input) {
+      output.value = prettyJSON(input);
+    };
+  </script>
 </html>
