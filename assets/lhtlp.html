@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="wasm_exec.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+    <style>
+      div {
+        text-align: center;
+      }
+      div input {
+        margin: auto;
+        display: block;
+        text-align: center;
+        margin-bottom: 12px;
+      }
+      hr {
+        margin: 25px 0;
+      }
+    </style>
+    <script>
+      const go = new Go();
+      WebAssembly.instantiateStreaming(
+        fetch("main.wasm"),
+        go.importObject
+      ).then((result) => {
+        go.run(result.instance);
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <a href="/index.html">Go Back</a>
+      <hr />
+      <h1>Linearly Homomorphic Time-Lock Puzzle</h1>
+      <p>
+        <a href="https://github.com/pmuens/time-lock-puzzle" target="_blank"
+          >Implementation</a
+        >
+        of
+        <a href="https://eprint.iacr.org/2019/635.pdf" target="_blank"
+          >Malavolta et al. - Homomorphic Time-Lock Puzzles and Applications</a
+        >.
+      </p>
+      <hr />
+      <form>
+        <label for="message">Message #1</label>
+        <input
+          id="message1"
+          name="message1"
+          type="number"
+          min="1"
+          placeholder="Message"
+          value="42"
+        />
+        <label for="message">Message #2</label>
+        <input
+          id="message2"
+          name="message2"
+          type="number"
+          min="1"
+          placeholder="Message"
+          value="24"
+        />
+        <label for="difficulty">Difficulty</label>
+        <input
+          id="difficulty"
+          name="difficulty"
+          type="number"
+          min="1"
+          placeholder="Difficulty"
+          value="2"
+        />
+        <button type="button" name="solve" onclick="lhtlp()">
+          Generate and Solve
+        </button>
+        <hr />
+        <input type="number" disabled name="result" placeholder="Result" />
+      </form>
+    </div>
+  </body>
+  <script>
+    var lhtlp = async function (message, difficulty) {
+      var message1 = document.querySelector('input[name="message1"]');
+      var message2 = document.querySelector('input[name="message2"]');
+      var difficulty = document.querySelector('input[name="difficulty"]');
+      var result = document.querySelector('input[name="result"]');
+      result.value = runLHTLP(
+        Number(message1.value),
+        Number(message2.value),
+        Number(difficulty.value)
+      );
+    };
+  </script>
+</html>
