@@ -64,9 +64,9 @@ func NewPuzzle(params Params, message int) *Puzzle {
 	v.Mod(v, n2)
 
 	return &Puzzle{
-		u,
-		v,
-		params,
+		U:      u,
+		V:      v,
+		Params: params,
 	}
 }
 
@@ -87,9 +87,9 @@ func (p *Puzzle) Add(other Puzzle) *Puzzle {
 	v.Mod(v, n2)
 
 	return &Puzzle{
-		u,
-		v,
-		params,
+		U:      u,
+		V:      v,
+		Params: params,
 	}
 }
 
