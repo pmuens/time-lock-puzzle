@@ -1,50 +1,38 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"syscall/js"
+
+	"github.com/pmuens/time-lock-puzzle/tlp"
 )
 
 func main() {
 	fmt.Printf("Hello %s\n", "World")
 
-	js.Global().Set("prettyJSON", jsonWrapper())
+	js.Global().Set("runTLP", tlpWrapped())
 
 	<-make(chan struct{})
 }
 
-func prettyJSON(input string) (string, error) {
-	var raw any
-	if err := json.Unmarshal([]byte(input), &raw); err != nil {
-		return "", err
-	}
-
-	pretty, err := json.MarshalIndent(raw, "", "  ")
-	if err != nil {
-		return "", err
-	}
-
-	return string(pretty), nil
-}
-
-func jsonWrapper() js.Func {
-	jsonFunc := js.FuncOf(func(this js.Value, args []js.Value) any {
-		if len(args) != 1 {
+func tlpWrapped() js.Func {
+	return js.FuncOf(func(this js.Value, args []js.Value) any {
+		if len(args) != 2 {
 			return "Invalid number of arguments passed."
 		}
 
-		input := args[0].String()
-		fmt.Printf("Input: %s\n", input)
+		bits := 1024
 
-		prettified, err := prettyJSON(input)
-		if err != nil {
-			fmt.Printf("Unable to convert to json %s\n", err)
-			return err.Error()
-		}
+		message := args[0].Int()
+		difficulty := args[1].Int()
 
-		return prettified
+		fmt.Printf("Bits: %d\n", bits)
+		fmt.Printf("Message: %d\n", message)
+		fmt.Printf("Difficulty: %d\n", difficulty)
+
+		puzzle := tlp.Generate(bits, message, difficulty)
+		solution := tlp.Solve(puzzle)
+
+		return solution.String()
 	})
-
-	return jsonFunc
 }
