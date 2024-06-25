@@ -13,9 +13,11 @@ The [second implementation](https://pmuens.github.io/time-lock-puzzle/lhtlp.html
 1. `git clone <url>`
 2. `cd <name>`
 3. `go run ./cmd/tlp`
-4. `GOOS=js GOARCH=wasm go build -o ./docs/main.wasm cmd/wasm/main.go`
-5. `go run ./cmd/server`
-6. [http://127.0.0.1:3000](http://127.0.0.1:3000)
+4. `GOOS=js GOARCH=wasm go build -o ./frontend/src/assets/main.wasm cmd/wasm/main.go`
+5. `cd frontend`
+6. `npm install`
+7. `npm run dev`
+8. [http://localhost:5173](http://localhost:5173)
 
 ## Useful Commands
 
@@ -65,10 +67,10 @@ go install <package-path>[@<version>]
 go list -m [all]
 
 # Has to be run only once.
-cp "$(go env GOROOT)/misc/wasm/wasm_exec.js" ./docs/
+cp "$(go env GOROOT)/misc/wasm/wasm_exec.js" ./frontend/src/assets
 
 # Run from project's root directory.
-GOOS=js GOARCH=wasm go build -o ./docs/main.wasm cmd/wasm/main.go
+GOOS=js GOARCH=wasm go build -o ./frontend/src/assets/main.wasm cmd/wasm/main.go
 ```
 
 ## Useful Resources
