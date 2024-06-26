@@ -5,4 +5,5 @@ import preact from "@preact/preset-vite";
 export default defineConfig({
   plugins: [preact()],
   assetsInclude: ["src/assets/*.wasm"],
+  base: "/time-lock-puzzle/",
 });
