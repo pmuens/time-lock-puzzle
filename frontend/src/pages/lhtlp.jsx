@@ -9,8 +9,8 @@ export default function LHTLP({ setPath }) {
   const { results, runLHTLP } = useWorker();
   const [message1, setMessage1] = useState(42);
   const [message2, setMessage2] = useState(24);
-  const [difficulty, setDifficulty] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
+  const [difficulty, setDifficulty] = useState(100_000);
 
   function handleSubmit(e) {
     e.preventDefault();

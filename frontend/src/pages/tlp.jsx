@@ -8,8 +8,8 @@ export default function TLP({ setPath }) {
   const [result, setResult] = useState();
   const { results, runTLP } = useWorker();
   const [message, setMessage] = useState(42);
-  const [difficulty, setDifficulty] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
+  const [difficulty, setDifficulty] = useState(100_000);
 
   function handleSubmit(e) {
     e.preventDefault();
