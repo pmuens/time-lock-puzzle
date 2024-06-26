@@ -1,22 +1,35 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 import Nav from "../components/Nav";
+import { useWorker } from "../hooks";
 
 export default function TLP({ setPath }) {
+  const [callId, setCallId] = useState();
   const [result, setResult] = useState();
+  const { results, runTLP } = useWorker();
   const [message, setMessage] = useState(42);
   const [difficulty, setDifficulty] = useState(2);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const msg = Number(message);
     const diff = Number(difficulty);
 
-    const res = window.runTLP(msg, diff);
+    const id = runTLP(msg, diff);
 
-    setResult(res);
+    setCallId(id);
   }
+
+  useEffect(() => {
+    if (results[callId]) {
+      setIsLoading(false);
+      setResult(results[callId]);
+    }
+  }, [callId, results]);
 
   return (
     <div>
@@ -58,8 +71,8 @@ export default function TLP({ setPath }) {
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
         />
-        <button type="submit" name="solve">
-          Generate and Solve
+        <button type="submit" name="solve" disabled={isLoading}>
+          {isLoading ? "Solving Puzzle..." : "Generate and Solve"}
         </button>
         <hr />
         <input

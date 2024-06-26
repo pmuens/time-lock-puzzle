@@ -1,24 +1,37 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 import Nav from "../components/Nav";
+import { useWorker } from "../hooks";
 
 export default function LHTLP({ setPath }) {
+  const [callId, setCallId] = useState();
   const [result, setResult] = useState();
+  const { results, runLHTLP } = useWorker();
   const [message1, setMessage1] = useState(42);
   const [message2, setMessage2] = useState(24);
   const [difficulty, setDifficulty] = useState(2);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    setIsLoading(true);
 
     const msg1 = Number(message1);
     const msg2 = Number(message2);
     const diff = Number(difficulty);
 
-    const res = window.runLHTLP(msg1, msg2, diff);
+    const id = runLHTLP(msg1, msg2, diff);
 
-    setResult(res);
+    setCallId(id);
   }
+
+  useEffect(() => {
+    if (results[callId]) {
+      setIsLoading(false);
+      setResult(results[callId]);
+    }
+  }, [callId, results]);
 
   return (
     <div>
@@ -67,8 +80,8 @@ export default function LHTLP({ setPath }) {
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
         />
-        <button type="submit" name="solve">
-          Generate and Solve
+        <button type="submit" name="solve" disabled={isLoading}>
+          {isLoading ? "Solving Puzzle..." : "Generate and Solve"}
         </button>
         <hr />
         <input
