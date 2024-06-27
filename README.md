@@ -8,6 +8,8 @@ The [first implementation](https://pmuens.github.io/time-lock-puzzle/tlp.html) i
 
 The [second implementation](https://pmuens.github.io/time-lock-puzzle/lhtlp.html) is the Linearly Homomorphic Time Lock Puzzle construction that was introduced by Malavolta et al. in "[Homomorphic Time-Lock Puzzles and Applications](https://eprint.iacr.org/2019/635.pdf)". This scheme is special in that it allows for the combination of multiple puzzles into one puzzle which, once solved, reveals the sum of the individual puzzles that were combined.
 
+Note that the code was written for educational purposes only. The project **wasn't audited** and shouldn't be used in production.
+
 ## Setup
 
 1. `git clone <url>`
