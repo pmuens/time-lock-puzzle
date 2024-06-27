@@ -1,11 +1,11 @@
-import Nav from "../components/Nav";
 import { TLP_PATH, LHTLP_PATH } from "../constants";
+import { useSharedState } from "../components/SharedState";
 
-export default function Index({ path, setPath }) {
+export default function Index() {
+  const { setPath } = useSharedState();
+
   return (
     <div>
-      <Nav path={path} setPath={setPath} />
-      <hr />
       <h1>Time-Lock Puzzle Implementations</h1>
       <ul>
         <li>

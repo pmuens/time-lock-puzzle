@@ -1,6 +1,9 @@
 import { ROOT_PATH } from "../constants";
+import { useSharedState } from "./SharedState";
 
-export default function Nav({ path, setPath }) {
+export default function Nav() {
+  const { path, setPath } = useSharedState();
+
   return (
     <nav>
       <ul>

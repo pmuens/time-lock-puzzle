@@ -1,20 +1,36 @@
-import { useState } from "preact/hooks";
-
 import "./app.css";
 
 import TLP from "./pages/tlp";
 import LHTLP from "./pages/lhtlp";
 import Index from "./pages/index";
-import { LHTLP_PATH, ROOT_PATH, TLP_PATH } from "./constants";
+import Nav from "./components/Nav";
+import { LHTLP_PATH, TLP_PATH } from "./constants";
+import { SharedStateProvider, useSharedState } from "./components/SharedState";
 
 export function App() {
-  const [path, setPath] = useState(ROOT_PATH);
+  return (
+    <SharedStateProvider>
+      <Page />
+    </SharedStateProvider>
+  );
+}
+
+function Page() {
+  const { path } = useSharedState();
+
+  let page = <Index />;
 
   if (path === TLP_PATH) {
-    return <TLP path={path} setPath={setPath} />;
+    page = <TLP />;
   } else if (path === LHTLP_PATH) {
-    return <LHTLP path={path} setPath={setPath} />;
+    page = <LHTLP />;
   }
 
-  return <Index path={path} setPath={setPath} />;
+  return (
+    <>
+      <Nav />
+      <hr />
+      {page}
+    </>
+  );
 }

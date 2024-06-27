@@ -1,9 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
 
-import Nav from "../components/Nav";
 import { useWorker } from "../hooks";
 
-export default function LHTLP({ path, setPath }) {
+export default function LHTLP() {
   const [result, setResult] = useState();
   const [message1, setMessage1] = useState(42);
   const [message2, setMessage2] = useState(24);
@@ -56,8 +55,6 @@ export default function LHTLP({ path, setPath }) {
 
   return (
     <div>
-      <Nav path={path} setPath={setPath} />
-      <hr />
       <h1>Linearly Homomorphic Time-Lock Puzzle</h1>
       <p>
         Implementation of{" "}

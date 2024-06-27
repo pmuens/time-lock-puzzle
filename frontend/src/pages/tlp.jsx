@@ -1,9 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
 
-import Nav from "../components/Nav";
 import { useWorker } from "../hooks";
 
-export default function TLP({ path, setPath }) {
+export default function TLP() {
   const [result, setResult] = useState();
   const [message, setMessage] = useState(42);
   const [puzzleJSON, setPuzzleJSON] = useState();
@@ -54,8 +53,6 @@ export default function TLP({ path, setPath }) {
 
   return (
     <div>
-      <Nav path={path} setPath={setPath} />
-      <hr />
       <h1>Time-Lock Puzzle</h1>
       <p>
         Implementation of{" "}
