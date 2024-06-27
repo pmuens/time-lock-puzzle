@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import Nav from "../components/Nav";
 import { useWorker } from "../hooks";
 
-export default function LHTLP({ setPath }) {
+export default function LHTLP({ path, setPath }) {
   const [result, setResult] = useState();
   const [message1, setMessage1] = useState(42);
   const [message2, setMessage2] = useState(24);
@@ -56,18 +56,15 @@ export default function LHTLP({ setPath }) {
 
   return (
     <div>
-      <Nav setPath={setPath} />
+      <Nav path={path} setPath={setPath} />
       <hr />
       <h1>Linearly Homomorphic Time-Lock Puzzle</h1>
       <p>
-        <a href="https://github.com/pmuens/time-lock-puzzle" target="_blank">
-          Implementation
-        </a>{" "}
-        of{" "}
+        Implementation of{" "}
         <a href="https://eprint.iacr.org/2019/635.pdf" target="_blank">
           Malavolta et al. - Homomorphic Time-Lock Puzzles and Applications
-        </a>
-        .
+        </a>{" "}
+        (Section 4.1)
       </p>
       <hr />
       <form onSubmit={handleSubmitGenerate}>

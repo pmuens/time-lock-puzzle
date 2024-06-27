@@ -29,3 +29,12 @@ a[role="button"] {
 textarea {
   margin-bottom: 12px;
 }
+
+nav ul {
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 6px;
+}

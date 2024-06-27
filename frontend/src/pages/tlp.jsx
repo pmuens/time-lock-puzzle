@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import Nav from "../components/Nav";
 import { useWorker } from "../hooks";
 
-export default function TLP({ setPath }) {
+export default function TLP({ path, setPath }) {
   const [result, setResult] = useState();
   const [message, setMessage] = useState(42);
   const [puzzleJSON, setPuzzleJSON] = useState();
@@ -54,21 +54,18 @@ export default function TLP({ setPath }) {
 
   return (
     <div>
-      <Nav setPath={setPath} />
+      <Nav path={path} setPath={setPath} />
       <hr />
       <h1>Time-Lock Puzzle</h1>
       <p>
-        <a href="https://github.com/pmuens/time-lock-puzzle" target="_blank">
-          Implementation
-        </a>{" "}
-        of{" "}
+        Implementation of{" "}
         <a
           href="https://people.eecs.berkeley.edu/~daw/papers/timelock.pdf"
           target="_blank"
         >
           Rivest et al. - Time-Lock Puzzles and Timed-Release Crypto
-        </a>
-        .
+        </a>{" "}
+        (Section 2.1 and 2.2)
       </p>
       <hr />
       <form onSubmit={handleSubmitGenerate}>

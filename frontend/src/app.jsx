@@ -5,16 +5,16 @@ import "./app.css";
 import TLP from "./pages/tlp";
 import LHTLP from "./pages/lhtlp";
 import Index from "./pages/index";
-import { LHTLP_PATH, TLP_PATH } from "./constants";
+import { LHTLP_PATH, ROOT_PATH, TLP_PATH } from "./constants";
 
 export function App() {
-  const [path, setPath] = useState();
+  const [path, setPath] = useState(ROOT_PATH);
 
   if (path === TLP_PATH) {
-    return <TLP setPath={setPath} />;
+    return <TLP path={path} setPath={setPath} />;
   } else if (path === LHTLP_PATH) {
-    return <LHTLP setPath={setPath} />;
+    return <LHTLP path={path} setPath={setPath} />;
   }
 
-  return <Index setPath={setPath} />;
+  return <Index path={path} setPath={setPath} />;
 }
