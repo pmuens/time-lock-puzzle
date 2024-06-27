@@ -10,12 +10,12 @@ export default function Index() {
       <ul>
         <li>
           <a role="button" onClick={() => setPath(TLP_PATH)}>
-            Rivest et al. - Time-Lock Puzzles and Timed-Release Crypto
+            🧩 Rivest et al. - Time-Lock Puzzles and Timed-Release Crypto
           </a>
         </li>
         <li>
           <a role="button" onClick={() => setPath(LHTLP_PATH)}>
-            Malavolta et al. - Homomorphic Time-Lock Puzzles and Applications
+            🧩 Malavolta et al. - Homomorphic Time-Lock Puzzles and Applications
           </a>
         </li>
       </ul>
