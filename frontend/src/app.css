@@ -25,3 +25,7 @@ hr {
 a[role="button"] {
   cursor: pointer;
 }
+
+textarea {
+  margin-bottom: 12px;
+}

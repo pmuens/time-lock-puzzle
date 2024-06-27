@@ -4,32 +4,53 @@ import Nav from "../components/Nav";
 import { useWorker } from "../hooks";
 
 export default function TLP({ setPath }) {
-  const [callId, setCallId] = useState();
   const [result, setResult] = useState();
-  const { results, runTLP } = useWorker();
   const [message, setMessage] = useState(42);
-  const [isLoading, setIsLoading] = useState(false);
+  const [puzzleJSON, setPuzzleJSON] = useState();
+  const [solveCallId, setSolveCallId] = useState();
   const [difficulty, setDifficulty] = useState(100_000);
+  const { results, generateTLP, solveTLP } = useWorker();
+  const [generateCallId, setGenerateCallId] = useState();
+  const [isSolvingPuzzle, setIsSolvingPuzzle] = useState(false);
+  const [isGeneratingPuzzle, setIsGeneratingPuzzle] = useState(false);
 
-  function handleSubmit(e) {
+  function handleSubmitGenerate(e) {
     e.preventDefault();
 
-    setIsLoading(true);
+    setIsGeneratingPuzzle(true);
 
     const msg = Number(message);
     const diff = Number(difficulty);
 
-    const id = runTLP(msg, diff);
+    const id = generateTLP(msg, diff);
 
-    setCallId(id);
+    setGenerateCallId(id);
+  }
+
+  function handleSubmitSolve(e) {
+    e.preventDefault();
+
+    if (!puzzleJSON) {
+      throw new Error("Can't solve puzzle without puzzle parameters.");
+    }
+
+    setIsSolvingPuzzle(true);
+
+    const id = solveTLP(puzzleJSON);
+
+    setSolveCallId(id);
   }
 
   useEffect(() => {
-    if (results[callId]) {
-      setIsLoading(false);
-      setResult(results[callId]);
+    if (results[generateCallId]) {
+      setPuzzleJSON(results[generateCallId]);
+      setIsGeneratingPuzzle(false);
     }
-  }, [callId, results]);
+    if (results[solveCallId]) {
+      setResult(results[solveCallId]);
+      setIsSolvingPuzzle(false);
+    }
+  }, [generateCallId, solveCallId, results]);
 
   return (
     <div>
@@ -50,7 +71,7 @@ export default function TLP({ setPath }) {
         .
       </p>
       <hr />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitGenerate}>
         <label for="message">Message</label>
         <input
           id="message"
@@ -71,8 +92,24 @@ export default function TLP({ setPath }) {
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
         />
-        <button type="submit" name="solve" disabled={isLoading}>
-          {isLoading ? "Solving Puzzle..." : "Generate and Solve"}
+        <button type="submit" name="generate" disabled={isGeneratingPuzzle}>
+          {isGeneratingPuzzle ? "Generating Puzzle..." : "Generate Puzzle"}
+        </button>
+      </form>
+      <hr />
+      <form onSubmit={handleSubmitSolve}>
+        <textarea
+          rows="15"
+          placeholder="Paste puzzle parameters here (or generate a new puzzle above)."
+          value={puzzleJSON}
+          onChange={(e) => setPuzzleJSON(e.target.value)}
+        ></textarea>
+        <button
+          type="submit"
+          name="solve"
+          disabled={isSolvingPuzzle || !puzzleJSON}
+        >
+          {isSolvingPuzzle ? "Solving Puzzle..." : "Solve Puzzle"}
         </button>
         <hr />
         <input

@@ -3,7 +3,15 @@
 import { useEffect, useState } from "preact/hooks";
 
 import WasmWorker from "./worker.js?worker";
-import { RESULT, CALL_RUN_TLP, CALL_RUN_LHTLP } from "./constants";
+import {
+  RESULT,
+  CALL_RUN_TLP,
+  CALL_RUN_LHTLP,
+  GENERATE_TLP,
+  SOLVE_TLP,
+  GENERATE_LHTLP,
+  SOLVE_LHTLP,
+} from "./constants";
 
 const worker = new WasmWorker();
 
@@ -49,6 +57,46 @@ export function useWorker() {
     return id;
   }
 
+  function generateTLP(message, difficulty) {
+    worker.postMessage({
+      id: getId(),
+      type: GENERATE_TLP,
+      data: [message, difficulty],
+    });
+
+    return id;
+  }
+
+  function solveTLP(puzzleJSON) {
+    worker.postMessage({
+      id: getId(),
+      type: SOLVE_TLP,
+      data: [puzzleJSON],
+    });
+
+    return id;
+  }
+
+  function generateLHTLP(message1, message2, difficulty) {
+    worker.postMessage({
+      id: getId(),
+      type: GENERATE_LHTLP,
+      data: [message1, message2, difficulty],
+    });
+
+    return id;
+  }
+
+  function solveLHTLP(puzzleJSON) {
+    worker.postMessage({
+      id: getId(),
+      type: SOLVE_LHTLP,
+      data: [puzzleJSON],
+    });
+
+    return id;
+  }
+
   useEffect(() => {
     worker.addEventListener("message", handleMessage);
 
@@ -57,5 +105,13 @@ export function useWorker() {
     };
   }, []);
 
-  return { results, runTLP, runLHTLP };
+  return {
+    results,
+    runTLP,
+    runLHTLP,
+    generateTLP,
+    solveTLP,
+    generateLHTLP,
+    solveLHTLP,
+  };
 }

@@ -5,3 +5,7 @@ export const RESULT = "RESULT";
 export const INITIALIZED = "INITIALIZED";
 export const CALL_RUN_TLP = "CALL_RUN_TLP";
 export const CALL_RUN_LHTLP = "CALL_RUN_LHTLP";
+export const GENERATE_TLP = "GENERATE_TLP";
+export const GENERATE_LHTLP = "GENERATE_LHTLP";
+export const SOLVE_TLP = "SOLVE_TLP";
+export const SOLVE_LHTLP = "SOLVE_LHTLP";
