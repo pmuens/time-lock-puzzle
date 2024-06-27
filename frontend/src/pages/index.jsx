@@ -19,6 +19,16 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <hr />
+      <p>
+        Time-Lock Puzzles allow one to hide a message in a cryptographic puzzle
+        that can only be solved after performing an operation x times.
+      </p>
+      <p>
+        The operation is constructed in a way such that a parallel execution is
+        impossible which ensures that the puzzle's difficulty can be reliably
+        determined using current advancements in hardware as a baseline.
+      </p>
     </div>
   );
 }
