@@ -13,11 +13,12 @@ The [second implementation](https://pmuens.github.io/time-lock-puzzle/lhtlp.html
 1. `git clone <url>`
 2. `cd <name>`
 3. `go run ./cmd/tlp`
-4. `GOOS=js GOARCH=wasm go build -o ./frontend/src/assets/main.wasm cmd/wasm/main.go`
-5. `cd frontend`
-6. `npm install`
-7. `npm run dev`
-8. [http://localhost:5173](http://localhost:5173)
+4. `go test ./...`
+5. `GOOS=js GOARCH=wasm go build -o ./frontend/src/assets/main.wasm cmd/wasm/main.go`
+6. `cd frontend`
+7. `npm install`
+8. `npm run dev`
+9. [http://localhost:5173](http://localhost:5173)
 
 ## Useful Commands
 
