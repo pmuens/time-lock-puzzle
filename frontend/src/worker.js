@@ -6,8 +6,6 @@ import wasmURL from "./assets/main.wasm";
 import * as _ from "./assets/wasm_exec.js?inline";
 import {
   RESULT,
-  CALL_RUN_TLP,
-  CALL_RUN_LHTLP,
   GENERATE_TLP,
   SOLVE_TLP,
   GENERATE_LHTLP,
@@ -40,23 +38,7 @@ self.addEventListener(
 
     console.log("worker.js - event.data", event.data);
 
-    if (type === CALL_RUN_TLP) {
-      const result = self.runTLP(...data);
-
-      self.postMessage({
-        id,
-        type: RESULT,
-        data: result,
-      });
-    } else if (type === CALL_RUN_LHTLP) {
-      const result = self.runLHTLP(...data);
-
-      self.postMessage({
-        id,
-        type: RESULT,
-        data: result,
-      });
-    } else if (type === GENERATE_TLP) {
+    if (type === GENERATE_TLP) {
       const result = self.generateTLP(...data);
 
       self.postMessage({

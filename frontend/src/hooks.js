@@ -5,8 +5,6 @@ import { useEffect, useState } from "preact/hooks";
 import WasmWorker from "./worker.js?worker";
 import {
   RESULT,
-  CALL_RUN_TLP,
-  CALL_RUN_LHTLP,
   GENERATE_TLP,
   SOLVE_TLP,
   GENERATE_LHTLP,
@@ -35,26 +33,6 @@ export function useWorker() {
         [id]: data,
       }));
     }
-  }
-
-  function runTLP(message, difficulty) {
-    worker.postMessage({
-      id: getId(),
-      type: CALL_RUN_TLP,
-      data: [message, difficulty],
-    });
-
-    return id;
-  }
-
-  function runLHTLP(message1, message2, difficulty) {
-    worker.postMessage({
-      id: getId(),
-      type: CALL_RUN_LHTLP,
-      data: [message1, message2, difficulty],
-    });
-
-    return id;
   }
 
   function generateTLP(message, difficulty) {
@@ -107,8 +85,6 @@ export function useWorker() {
 
   return {
     results,
-    runTLP,
-    runLHTLP,
     generateTLP,
     solveTLP,
     generateLHTLP,

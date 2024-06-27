@@ -14,11 +14,9 @@ const Bits = 1024
 func main() {
 	fmt.Printf("Hello %s\n", "World")
 
-	js.Global().Set("runTLP", tlpWrapped())
 	js.Global().Set("generateTLP", generateTLP())
 	js.Global().Set("solveTLP", solveTLP())
 
-	js.Global().Set("runLHTLP", lhtlpWrapped())
 	js.Global().Set("generateLHTLP", generateLHTLP())
 	js.Global().Set("solveLHTLP", solveLHTLP())
 
@@ -69,26 +67,6 @@ func solveTLP() js.Func {
 		fmt.Printf("T: %s\n", puzzle.T)
 		fmt.Printf("Z: %s\n", puzzle.Z)
 
-		solution := tlp.Solve(puzzle)
-
-		return solution.String()
-	})
-}
-
-func tlpWrapped() js.Func {
-	return js.FuncOf(func(this js.Value, args []js.Value) any {
-		if len(args) != 2 {
-			return "Invalid number of arguments passed."
-		}
-
-		message := args[0].Int()
-		difficulty := args[1].Int()
-
-		fmt.Printf("Bits: %d\n", Bits)
-		fmt.Printf("Message: %d\n", message)
-		fmt.Printf("Difficulty: %d\n", difficulty)
-
-		puzzle := tlp.Generate(Bits, message, difficulty)
 		solution := tlp.Solve(puzzle)
 
 		return solution.String()
@@ -148,33 +126,6 @@ func solveLHTLP() js.Func {
 		fmt.Printf("Params (T): %v\n", puzzle.Params.T)
 
 		solution := lhtlp.Solve(puzzle)
-
-		return solution.String()
-	})
-}
-
-func lhtlpWrapped() js.Func {
-	return js.FuncOf(func(this js.Value, args []js.Value) any {
-		if len(args) != 3 {
-			return "Invalid number of arguments passed."
-		}
-
-		message1 := args[0].Int()
-		message2 := args[1].Int()
-		difficulty := args[2].Int()
-
-		fmt.Printf("Bits: %d\n", Bits)
-		fmt.Printf("Message #1: %d\n", message1)
-		fmt.Printf("Message #2: %d\n", message2)
-		fmt.Printf("Difficulty: %d\n", difficulty)
-
-		params := lhtlp.NewParams(Bits, difficulty)
-		puzzle1 := lhtlp.NewPuzzle(*params, message1)
-		puzzle2 := lhtlp.NewPuzzle(*params, message2)
-
-		puzzle3 := puzzle1.Add(*puzzle2)
-
-		solution := lhtlp.Solve(*puzzle3)
 
 		return solution.String()
 	})
